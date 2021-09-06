@@ -1,0 +1,70 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-5 mb-5">
+<div class="col-lg-5 mx-auto">
+<div class="card p-5 text-dark">
+
+<h1>{% trans "Sign In" %}</h1>
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+<p>{% blocktrans with site.name as site_name %}Please sign in with one
+of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+<div class="socialaccount_ballot">
+
+  <ul class="socialaccount_providers">
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+  </ul>
+
+  <div class="login-or">{% trans 'or' %}</div>
+
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+<p>{% blocktrans %}If you have not created an account yet, then please
+<a href="{{ signup_url }}" class="menu-link text-warning">sign up</a> first.{% endblocktrans %}</p>
+{% endif %}
+
+<form class="login form" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+<div class="text-warning" >
+  {{ form.non_field_errors }}
+</div>
+
+  <input class="form-control mt-2" type="text" name="login" placeholder="Username" autocomplete="username" maxlength="150" required="" id="id_login">
+
+
+  <input class="form-control mt-2" type="password" name="password" placeholder="Password" autocomplete="current-password" required="" id="id_password"></p>
+
+  <input type="checkbox" name="remember" id="id_remember"><label> &nbsp Remember Me</label>
+  <br>
+
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button class="form-control btn-success primaryAction" type="submit">{% trans "Sign In" %}</button>
+  <a class="secondaryAction " href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+
+
+
+</form>
+
+
+{% endblock %}
+</div>
+</div>
+</div>

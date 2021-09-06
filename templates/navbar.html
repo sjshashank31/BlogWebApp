@@ -1,0 +1,33 @@
+<ul class="menu-nav">
+{% if user.is_authenticated %}
+  <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" >
+      <a href="{% url 'blog:home' %}" class="menu-link ">
+          <span class="menu-text">{{ user.get_username }}</span>
+      </a>
+
+  </li>
+  <li class="menu-item menu-item-submenu menu-item-rel" >
+      <a href="{% url 'account_logout' %}" class="menu-link ">
+          <span class="menu-text">LogOut</span>
+
+      </a>
+
+  </li>
+  {% else %}
+  <li class="menu-item menu-item-submenu menu-item-rel" >
+      <a href="{% url 'account_signup' %}" class="menu-link ">
+          <span class="menu-text">SignUp</span>
+
+      </a>
+
+  </li>
+  <li class="menu-item menu-item-submenu menu-item-rel" >
+      <a href="{% url 'account_login' %}" class="menu-link ">
+          <span class="menu-text">Log In</span>
+
+      </a>
+
+  </li>
+  {% endif %}
+
+</ul>

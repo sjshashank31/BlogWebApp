@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'aside_right.html' %}
+
+
+    <div class="card card-custom gutter-b">
+
+    <!--begin::Card body-->
+    <div class="card-body">
+        <div class="row">
+            {% for blog in blog %}
+            <div class="col-lg-4 ">
+                <div class="card" style="width:auto">
+                    <p class="card-header"> @{{ blog.user }}</p>
+                  <img class="card-img-top" style="width:auto;" src="{{blog.img.url}}" alt="Card image">
+                  <div class="card-body">
+                    <h4 class="card-title">{{blog.title}}</h4>
+                    <p class="card-text">{{ blog.description }}</p>
+                    <a href="{% url 'blog:blog-details' blog.slug %}" class="btn btn-primary">view</a>
+                  </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!--end:: Card body-->
+</div>
+
+
+
+
+{% endblock %}

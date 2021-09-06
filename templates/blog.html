@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ blog.title }}
+{% endblock%}
+
+{% block content %}
+
+
+<div class="container mt-5">
+<div class="row">
+        <div class="col-sm-6 mt-3 w-100">
+            <div class="card">
+                <div class="card-header bg-info text-center text-white">
+                    <h1>  {{ blog.title }} </a></h1>
+                </div>
+
+                <div class="text-center mt-2" style="width :500px height: 500px;" >
+                <img style="width: -webkit-fill-available;" src="{{ blog.img.url }}" />
+                </div>
+                <div class="card-body mt-2" style="background:white;">
+                <p >{{ blog.description }}</p>
+                </div>
+            </div>
+            {% if blog_extraa %}
+
+            {% for blog in blog_extraa %}
+
+
+            <div class="card mt-2">
+                <div class="text-center mt-2" style="width :500px height: 500px;" >
+                <img width="500" height="500" style="width:auto;" src="{{ blog.img.url }}" />
+                </div>
+                <div class="card-body mt-2" style="background:white;">
+                <p >{{ blog.caption }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
+            by @{{ blog.user }}
+        </div>
+        <div class="col-sm-6 mt-3 ">
+            <div class="card  p-3 border border-info">
+            <h3 class="card-header bg-info text-white text-center mt-2">Add Extraa Details</h3>
+
+            <form class="form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Image</label>
+                <div class="custom-file mb-3">
+                    <input class="custom-file-input" type="file" name="img" accept="image/*" required id="id_img">
+                 <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <label>Caption</label>
+                <textarea class="form-control" name="caption" cols="40" rows="10" required id="id_caption"></textarea>
+                <input class="btn btn-info form-control mt-2" type="submit" value="submit">
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
